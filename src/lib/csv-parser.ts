@@ -1,14 +1,39 @@
 export interface DealRecord {
+  id: string;
   mes: string;
   fecha: string;
-  area: string;
+  ticket: string;
+  tiempoGestion: number;
   tipoContrato: string;
-  pais: string;
-  usd: number;
   truoraScore: number | null;
+  area: string;
+  encargado: string;
+  nombreDeal: string;
+  linkHubspot: string;
+  tipoNegocio: string;
+  subsidiaria: string;
+  pais: string;
+  valorLocal: number;
+  moneda: string;
+  usd: number;
+  valorHubspot: number;
+  valorNetsuite: number;
+  diferencia: number;
+  estatusHubspot: string;
+  estatusNetsuite: string;
+  oc: string;
+  pipeline: string;
   excepcion: string;
-  cliente: string;
-  deal: string;
+  tipoAprobacion: string;
+  estado: string;
+  aprobador: string;
+  estadoFacturacion: string;
+  cartera: string;
+  fechaContrato: string;
+  ingresoRetenido: string;
+  seguimientoExcepcion: string;
+  dealOriginal: string;
+  observaciones: string;
   raw: Record<string, string>;
 }
 
@@ -17,96 +42,155 @@ const MONTH_NAMES = [
   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
 ];
 
+const SPANISH_MONTHS: Record<string, number> = {
+  'enero': 0, 'febrero': 1, 'marzo': 2, 'abril': 3, 'mayo': 4, 'junio': 5,
+  'julio': 6, 'agosto': 7, 'septiembre': 8, 'octubre': 9, 'noviembre': 10, 'diciembre': 11
+};
+
 function extractMonth(dateStr: string): string {
-  if (!dateStr) return '';
-  // Try parsing date formats
+  if (!dateStr || dateStr === '#N/A') return '';
+  
+  // "19 de enero de 2026" format
+  const spanishMatch = dateStr.toLowerCase().match(/de\s+(\w+)\s+de/);
+  if (spanishMatch) {
+    const monthName = spanishMatch[1];
+    if (monthName in SPANISH_MONTHS) {
+      return MONTH_NAMES[SPANISH_MONTHS[monthName]];
+    }
+  }
+  
+  // Try standard date parsing
   const d = new Date(dateStr);
   if (!isNaN(d.getTime())) {
     return MONTH_NAMES[d.getMonth()];
   }
-  // Check if it's already a month name
+  
+  // Already a month name
   const lower = dateStr.toLowerCase().trim();
   const found = MONTH_NAMES.find(m => m.toLowerCase() === lower);
   if (found) return found;
+  
   return dateStr;
 }
 
-function findColumnIndex(headers: string[], ...candidates: string[]): number {
-  for (const c of candidates) {
-    const idx = headers.findIndex(h => h.toLowerCase().trim().includes(c.toLowerCase()));
-    if (idx !== -1) return idx;
+function parseSpanishNumber(str: string): number {
+  if (!str || str === '#N/A' || str === 'N/A') return 0;
+  // Remove currency symbols, spaces
+  let clean = str.replace(/[$\s]/g, '');
+  // Spanish format: 23.560,00 → 23560.00
+  if (clean.includes(',') && clean.includes('.')) {
+    // Determine which is decimal: last separator
+    const lastComma = clean.lastIndexOf(',');
+    const lastDot = clean.lastIndexOf('.');
+    if (lastComma > lastDot) {
+      // 23.560,00 → comma is decimal
+      clean = clean.replace(/\./g, '').replace(',', '.');
+    } else {
+      // 23,560.00 → dot is decimal
+      clean = clean.replace(/,/g, '');
+    }
+  } else if (clean.includes(',')) {
+    // Could be decimal comma: 11000,09
+    const parts = clean.split(',');
+    if (parts.length === 2 && parts[1].length <= 2) {
+      clean = clean.replace(',', '.');
+    } else {
+      clean = clean.replace(/,/g, '');
+    }
   }
-  return -1;
+  return parseFloat(clean) || 0;
+}
+
+function normalizeArea(area: string): string {
+  const upper = area.toUpperCase().trim();
+  if (upper.includes('SALES') || upper === 'SALES') return 'SALES';
+  if (upper.includes('CUSTOMER') || upper === 'CUSTOMER') return 'CUSTOMER';
+  return upper;
 }
 
 export function parseCSV(text: string): { records: DealRecord[]; months: string[]; areas: string[] } {
-  const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+  const lines = text.split(/\r?\n/);
   
-  // Find header row (row 3, index 2, but try to auto-detect)
-  let headerIdx = 2;
-  // If fewer than 3 lines, try first
-  if (lines.length <= 2) headerIdx = 0;
-  // Auto-detect: find a row that has multiple non-empty cells
-  for (let i = 0; i < Math.min(5, lines.length); i++) {
-    const cells = lines[i].split(',');
-    const nonEmpty = cells.filter(c => c.trim().length > 0).length;
-    if (nonEmpty >= 5) {
+  // Find header row - look for row with "DEAL" and "FECHA"
+  let headerIdx = -1;
+  for (let i = 0; i < Math.min(10, lines.length); i++) {
+    const cells = parseCSVLine(lines[i]);
+    if (cells.some(c => c.trim().toUpperCase() === 'DEAL') && 
+        cells.some(c => c.trim().toUpperCase() === 'FECHA')) {
       headerIdx = i;
       break;
     }
   }
+  if (headerIdx === -1) headerIdx = 3; // fallback to row 4 (index 3)
 
-  const headerLine = lines[headerIdx];
-  const headers = parseCSVLine(headerLine);
-
-  const colMes = findColumnIndex(headers, 'MES');
-  const colFecha = findColumnIndex(headers, 'FECHA');
-  const colArea = findColumnIndex(headers, 'ÁREA', 'AREA');
-  const colTipo = findColumnIndex(headers, 'TIPO DE CONTRATO', 'TIPO_CONTRATO', 'TIPO');
-  const colPais = findColumnIndex(headers, 'PAÍS', 'PAIS');
-  const colUsd = findColumnIndex(headers, 'USD', 'VALOR USD', 'MONTO');
-  const colTruora = findColumnIndex(headers, 'TRUORA', 'SCORE');
-  const colExcepcion = findColumnIndex(headers, 'EXCEPCIÓN', 'EXCEPCION');
-  const colCliente = findColumnIndex(headers, 'CLIENTE', 'EMPRESA');
-  const colDeal = findColumnIndex(headers, 'DEAL', 'NOMBRE');
-
+  const headers = parseCSVLine(lines[headerIdx]);
+  
   const records: DealRecord[] = [];
   const monthSet = new Set<string>();
   const areaSet = new Set<string>();
 
   for (let i = headerIdx + 1; i < lines.length; i++) {
-    const cells = parseCSVLine(lines[i]);
-    if (cells.length < 3) continue;
+    const line = lines[i];
+    if (!line || line.trim().length === 0) continue;
+    
+    const cells = parseCSVLine(line);
+    if (cells.length < 10) continue;
+    
+    const id = cells[0]?.trim() || '';
+    const fecha = cells[1]?.trim() || '';
+    
+    // Skip non-data rows
+    if (!id || id === '#N/A' || id.startsWith('TOTAL') || !fecha || fecha === '#N/A') continue;
+    // Skip if id is not numeric-like
+    if (!/^\d+$/.test(id)) continue;
 
     const raw: Record<string, string> = {};
-    headers.forEach((h, idx) => {
-      raw[h] = cells[idx] || '';
-    });
+    headers.forEach((h, idx) => { raw[h.trim()] = cells[idx] || ''; });
 
-    let mes = colMes !== -1 ? cells[colMes]?.trim() || '' : '';
-    if (!mes && colFecha !== -1) {
-      mes = extractMonth(cells[colFecha]?.trim() || '');
-    }
-
-    const area = colArea !== -1 ? (cells[colArea]?.trim() || '').toUpperCase() : '';
-    const usdStr = colUsd !== -1 ? (cells[colUsd]?.trim() || '0') : '0';
-    const usd = parseFloat(usdStr.replace(/[,$]/g, '')) || 0;
-    const truoraStr = colTruora !== -1 ? cells[colTruora]?.trim() : '';
-    const truoraScore = truoraStr ? parseFloat(truoraStr) || null : null;
+    const mes = extractMonth(fecha);
+    const area = normalizeArea(cells[6] || '');
+    const usd = parseSpanishNumber(cells[15] || '');
+    const truoraStr = cells[5]?.trim();
+    const truoraScore = (truoraStr && truoraStr !== '#N/A') ? (parseFloat(truoraStr) || null) : null;
 
     if (!mes && !area && usd === 0) continue;
 
     const record: DealRecord = {
+      id,
       mes: mes || 'Sin Mes',
-      fecha: colFecha !== -1 ? cells[colFecha]?.trim() || '' : '',
-      area,
-      tipoContrato: colTipo !== -1 ? cells[colTipo]?.trim() || '' : '',
-      pais: colPais !== -1 ? cells[colPais]?.trim() || '' : '',
-      usd,
+      fecha,
+      ticket: cells[2]?.trim() || '',
+      tiempoGestion: parseInt(cells[3]?.trim() || '0') || 0,
+      tipoContrato: cells[4]?.trim() || '',
       truoraScore,
-      excepcion: colExcepcion !== -1 ? (cells[colExcepcion]?.trim() || '').toUpperCase() : '',
-      cliente: colCliente !== -1 ? cells[colCliente]?.trim() || '' : '',
-      deal: colDeal !== -1 ? cells[colDeal]?.trim() || '' : '',
+      area,
+      encargado: cells[7]?.trim() || '',
+      nombreDeal: cells[8]?.trim() || '',
+      linkHubspot: cells[9]?.trim() || '',
+      tipoNegocio: cells[10]?.trim() || '',
+      subsidiaria: cells[11]?.trim() || '',
+      pais: cells[12]?.trim() || '',
+      valorLocal: parseSpanishNumber(cells[13] || ''),
+      moneda: cells[14]?.trim() || '',
+      usd,
+      valorHubspot: parseSpanishNumber(cells[16] || ''),
+      valorNetsuite: parseSpanishNumber(cells[17] || ''),
+      diferencia: parseSpanishNumber(cells[18] || ''),
+      estatusHubspot: cells[19]?.trim().toUpperCase() || '',
+      estatusNetsuite: cells[20]?.trim().toUpperCase() || '',
+      oc: cells[21]?.trim().toUpperCase() || '',
+      pipeline: cells[22]?.trim() || '',
+      excepcion: cells[23]?.trim().toUpperCase() || '',
+      tipoAprobacion: cells[24]?.trim() || '',
+      estado: cells[25]?.trim() || '',
+      aprobador: cells[26]?.trim() || '',
+      estadoFacturacion: cells[27]?.trim() || '',
+      cartera: cells[28]?.trim() || '',
+      fechaContrato: cells[29]?.trim() || '',
+      ingresoRetenido: cells[30]?.trim() || '',
+      seguimientoExcepcion: cells[31]?.trim() || '',
+      dealOriginal: cells[32]?.trim() || '',
+      observaciones: cells[40]?.trim() || '',
       raw,
     };
 
@@ -118,7 +202,10 @@ export function parseCSV(text: string): { records: DealRecord[]; months: string[
   const months = MONTH_NAMES.filter(m => monthSet.has(m));
   if (months.length === 0) months.push(...monthSet);
 
-  return { records, months, areas: Array.from(areaSet).sort() };
+  // Only show SALES and CUSTOMER
+  const areas = ['SALES', 'CUSTOMER'].filter(a => areaSet.has(a));
+
+  return { records, months, areas };
 }
 
 function parseCSVLine(line: string): string[] {

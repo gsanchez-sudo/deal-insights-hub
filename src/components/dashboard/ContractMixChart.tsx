@@ -5,38 +5,36 @@ interface ContractMixChartProps {
   total: number;
 }
 
-const COLORS = ["#1a6bff", "#0083C1", "#2aa4e0", "#4db8e8", "#7dcdf0", "#a8dff5"];
+const COLORS = [
+  "hsl(218, 100%, 22%)",
+  "hsl(202, 100%, 38%)",
+  "hsl(142, 71%, 45%)",
+  "hsl(38, 92%, 50%)",
+  "hsl(262, 83%, 58%)",
+  "hsl(0, 84%, 60%)",
+];
 
 export function ContractMixChart({ data, total }: ContractMixChartProps) {
   return (
-    <div className="bg-card p-6 rounded-lg border border-border">
-      <h3 className="text-lg font-display text-foreground mb-4">Mix de Contratos</h3>
+    <div className="bg-card p-5 rounded-lg border border-border">
+      <h3 className="text-sm font-display font-semibold text-foreground mb-4">Mix de Contratos</h3>
       <div className="flex items-center gap-6">
-        <div className="relative w-52 h-52">
+        <div className="relative w-44 h-44">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
-              <Pie
-                data={data}
-                cx="50%"
-                cy="50%"
-                innerRadius={55}
-                outerRadius={85}
-                dataKey="value"
-                stroke="none"
-              >
+              <Pie data={data} cx="50%" cy="50%" innerRadius={48} outerRadius={72} dataKey="value" stroke="none">
                 {data.map((_, i) => (
                   <Cell key={i} fill={COLORS[i % COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip
-                contentStyle={{ background: "#0A1C33", border: "1px solid #1a3a5c", borderRadius: "6px", color: "#fff" }}
-                itemStyle={{ color: "#fff" }}
+                contentStyle={{ background: '#fff', border: '1px solid hsl(220,13%,91%)', borderRadius: '8px', fontSize: '12px' }}
               />
             </PieChart>
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <span className="text-2xl font-display text-foreground">{total}</span>
-            <span className="text-xs text-muted-foreground">Contratos</span>
+            <span className="text-2xl font-display font-bold text-foreground">{total}</span>
+            <span className="text-xs text-muted-foreground">Total</span>
           </div>
         </div>
         <div className="flex flex-col gap-2 flex-1">
@@ -44,7 +42,7 @@ export function ContractMixChart({ data, total }: ContractMixChartProps) {
             <div key={item.name} className="flex items-center gap-2 text-sm">
               <div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
               <span className="text-muted-foreground flex-1">{item.name}</span>
-              <span className="font-display text-foreground">{item.value}</span>
+              <span className="font-semibold text-foreground">{item.value}</span>
             </div>
           ))}
         </div>

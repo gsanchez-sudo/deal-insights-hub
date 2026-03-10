@@ -21,11 +21,11 @@ export function FilterBar({
   const fileRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="flex flex-wrap items-center gap-4">
+    <div className="flex flex-wrap items-center gap-3">
       <div className="flex items-center gap-2">
-        <label className="text-sm text-muted-foreground font-body">MES</label>
+        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Mes</label>
         <Select value={selectedMonth} onValueChange={onMonthChange} disabled={!hasData}>
-          <SelectTrigger className="w-40 bg-card border-border text-foreground">
+          <SelectTrigger className="w-36 bg-card border-border text-foreground h-9 text-sm">
             <SelectValue placeholder="Seleccionar" />
           </SelectTrigger>
           <SelectContent className="bg-card border-border">
@@ -38,9 +38,9 @@ export function FilterBar({
       </div>
 
       <div className="flex items-center gap-2">
-        <label className="text-sm text-muted-foreground font-body">ÁREA</label>
+        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Área</label>
         <Select value={selectedArea} onValueChange={onAreaChange} disabled={!hasData}>
-          <SelectTrigger className="w-40 bg-card border-border text-foreground">
+          <SelectTrigger className="w-36 bg-card border-border text-foreground h-9 text-sm">
             <SelectValue placeholder="Seleccionar" />
           </SelectTrigger>
           <SelectContent className="bg-card border-border">
@@ -52,7 +52,7 @@ export function FilterBar({
         </Select>
       </div>
 
-      <div className="ml-auto flex items-center gap-3">
+      <div className="ml-auto">
         <input
           ref={fileRef}
           type="file"
@@ -65,6 +65,7 @@ export function FilterBar({
         />
         <Button
           variant="outline"
+          size="sm"
           onClick={() => fileRef.current?.click()}
           className="border-border text-foreground hover:bg-muted"
         >
