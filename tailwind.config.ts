@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Archivo Black", "sans-serif"],
+        display: ["Sora", "sans-serif"],
         body: ["Inter", "sans-serif"],
       },
       colors: {
@@ -51,7 +51,22 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        alert: "hsl(var(--alert))",
+        "status-in": {
+          DEFAULT: "hsl(var(--status-in))",
+          foreground: "hsl(var(--status-in-foreground))",
+        },
+        "status-forecast": {
+          DEFAULT: "hsl(var(--status-forecast))",
+          foreground: "hsl(var(--status-forecast-foreground))",
+        },
+        "status-exception": {
+          DEFAULT: "hsl(var(--status-exception))",
+          foreground: "hsl(var(--status-exception-foreground))",
+        },
+        "status-multicuenta": {
+          DEFAULT: "hsl(var(--status-multicuenta))",
+          foreground: "hsl(var(--status-multicuenta-foreground))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
