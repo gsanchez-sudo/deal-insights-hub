@@ -7,14 +7,14 @@ interface SubsidiariaChartProps {
 }
 
 const COLORS = [
-  "hsl(218, 100%, 22%)",
-  "hsl(202, 100%, 38%)",
-  "hsl(142, 71%, 45%)",
-  "hsl(38, 92%, 50%)",
-  "hsl(262, 83%, 58%)",
-  "hsl(0, 84%, 60%)",
-  "hsl(180, 60%, 40%)",
-  "hsl(300, 60%, 50%)",
+  "hsl(228, 50%, 9%)",       // Navy
+  "hsl(222, 100%, 56%)",     // Bright Blue
+  "hsl(152, 100%, 38%)",     // Green
+  "hsl(44, 97%, 49%)",       // Yellow
+  "hsl(231, 75%, 17%)",      // Deep Blue
+  "hsl(356, 82%, 47%)",      // Red
+  "hsl(207, 100%, 39%)",     // Mid Blue
+  "hsl(188, 100%, 49%)",     // Cyan
 ];
 
 export function SubsidiariaChart({ deals }: SubsidiariaChartProps) {

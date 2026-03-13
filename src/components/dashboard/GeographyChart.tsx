@@ -34,7 +34,7 @@ export function GeographyChart({ data }: GeographyChartProps) {
           />
           <Bar dataKey="value" radius={[0, 4, 4, 0]} maxBarSize={22}>
             {sorted.map((entry, i) => (
-              <Cell key={i} fill={entry.value === maxVal ? 'hsl(218,100%,22%)' : 'hsl(202,100%,38%)'} />
+              <Cell key={i} fill={entry.value === maxVal ? 'hsl(228, 50%, 9%)' : 'hsl(222, 100%, 56%)'} />
             ))}
           </Bar>
         </BarChart>
