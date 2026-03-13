@@ -13,6 +13,7 @@ import { SubsidiariaChart } from "@/components/dashboard/SubsidiariaChart";
 import { TerritoryRanking } from "@/components/dashboard/TerritoryRanking";
 import { PipelineAnalysis } from "@/components/dashboard/PipelineAnalysis";
 import { DataTable } from "@/components/dashboard/DataTable";
+import { RiskDashboard } from "@/components/risk/RiskDashboard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ubitsLogo from "@/assets/ubits-logo.svg";
 
