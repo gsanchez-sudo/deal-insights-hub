@@ -13,6 +13,7 @@ import { SubsidiariaChart } from "@/components/dashboard/SubsidiariaChart";
 import { TerritoryRanking } from "@/components/dashboard/TerritoryRanking";
 import { PipelineAnalysis } from "@/components/dashboard/PipelineAnalysis";
 import { DataTable } from "@/components/dashboard/DataTable";
+import { RiskDashboard } from "@/components/risk/RiskDashboard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ubitsLogo from "@/assets/ubits-logo.svg";
 
@@ -174,6 +175,9 @@ export default function Index() {
               <TabsTrigger value="pipeline" className="data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
                 Análisis de Pipeline
               </TabsTrigger>
+              <TabsTrigger value="riesgos" className="data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+                Gestión de Riesgos
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="dashboard">
@@ -218,6 +222,10 @@ export default function Index() {
                   <PipelineAnalysis deals={filtered} />
                 </motion.div>
               </AnimatePresence>
+            </TabsContent>
+
+            <TabsContent value="riesgos">
+              <RiskDashboard deals={filtered} />
             </TabsContent>
           </Tabs>
         )}

@@ -67,6 +67,23 @@ export default {
           DEFAULT: "hsl(var(--status-multicuenta))",
           foreground: "hsl(var(--status-multicuenta-foreground))",
         },
+        ubits: {
+          navy: "hsl(var(--ubits-navy))",
+          blue: "hsl(var(--ubits-blue))",
+          deep: "hsl(var(--ubits-deep))",
+          cyan: "hsl(var(--ubits-cyan))",
+          "mid-blue": "hsl(var(--ubits-mid-blue))",
+          red: "hsl(var(--ubits-red))",
+          yellow: "hsl(var(--ubits-yellow))",
+          green: "hsl(var(--ubits-green))",
+        },
+        risk: {
+          approved: "hsl(var(--risk-approved))",
+          alert: "hsl(var(--risk-alert))",
+          review: "hsl(var(--risk-review))",
+          jurisdiction: "hsl(var(--risk-jurisdiction))",
+          rejected: "hsl(var(--risk-rejected))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

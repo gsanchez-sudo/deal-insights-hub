@@ -1,23 +1,33 @@
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, Legend, Cell } from "recharts";
 import type { DealRecord } from "@/lib/csv-parser";
 import { useMemo } from "react";
 
-interface SubsidiariaChartProps {
+interface RiskBarChartProps {
   deals: DealRecord[];
 }
 
-const COLORS = [
-  "hsl(228, 50%, 9%)",       // Navy
-  "hsl(222, 100%, 56%)",     // Bright Blue
-  "hsl(152, 100%, 38%)",     // Green
-  "hsl(44, 97%, 49%)",       // Yellow
-  "hsl(231, 75%, 17%)",      // Deep Blue
-  "hsl(356, 82%, 47%)",      // Red
-  "hsl(207, 100%, 39%)",     // Mid Blue
-  "hsl(188, 100%, 49%)",     // Cyan
+// UBITS corporate colors for countries
+const COUNTRY_COLORS: Record<string, string> = {
+  'MÉXICO': 'hsl(228, 50%, 9%)',
+  'MEXICO': 'hsl(228, 50%, 9%)',
+  'COLOMBIA': 'hsl(222, 100%, 56%)',
+  'CHILE': 'hsl(231, 75%, 17%)',
+  'PERÚ': 'hsl(152, 100%, 38%)',
+  'PERU': 'hsl(152, 100%, 38%)',
+  'PANAMÁ': 'hsl(207, 100%, 39%)',
+  'PANAMA': 'hsl(207, 100%, 39%)',
+  'GUATEMALA': 'hsl(188, 100%, 49%)',
+  'NICARAGUA': 'hsl(231, 75%, 17%)',
+};
+
+const FALLBACK_COLORS = [
+  'hsl(44, 97%, 49%)',
+  'hsl(356, 82%, 47%)',
+  'hsl(207, 100%, 39%)',
+  'hsl(188, 100%, 49%)',
 ];
 
-export function SubsidiariaChart({ deals }: SubsidiariaChartProps) {
+export function RiskBarChart({ deals }: RiskBarChartProps) {
   const { data, countries } = useMemo(() => {
     const subsMap = new Map<string, Map<string, number>>();
     const countrySet = new Set<string>();
@@ -42,7 +52,6 @@ export function SubsidiariaChart({ deals }: SubsidiariaChartProps) {
     return { data, countries };
   }, [deals]);
 
-  // Also compute USD by subsidiary for tooltip
   const usdBySubsidiaria = useMemo(() => {
     const m = new Map<string, number>();
     deals.forEach(d => {
@@ -52,13 +61,18 @@ export function SubsidiariaChart({ deals }: SubsidiariaChartProps) {
     return m;
   }, [deals]);
 
+  const getColor = (country: string, index: number) => {
+    const upper = country.toUpperCase();
+    return COUNTRY_COLORS[upper] || FALLBACK_COLORS[index % FALLBACK_COLORS.length];
+  };
+
   return (
     <div className="bg-card rounded-lg border border-border p-5">
       <h3 className="text-sm font-display font-semibold text-foreground mb-4">Deals por Subsidiaria y País</h3>
       <ResponsiveContainer width="100%" height={Math.max(250, data.length * 45)}>
         <BarChart data={data} layout="vertical" margin={{ left: 10, right: 30 }}>
-          <XAxis type="number" tick={{ fill: 'hsl(215, 16%, 47%)', fontSize: 12 }} axisLine={false} tickLine={false} />
-          <YAxis type="category" dataKey="name" width={100} tick={{ fill: 'hsl(215, 60%, 10%)', fontSize: 11 }} axisLine={false} tickLine={false} />
+          <XAxis type="number" tick={{ fill: 'hsl(220, 9%, 46%)', fontSize: 12 }} axisLine={false} tickLine={false} />
+          <YAxis type="category" dataKey="name" width={100} tick={{ fill: 'hsl(228, 50%, 9%)', fontSize: 11 }} axisLine={false} tickLine={false} />
           <Tooltip
             contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: '8px', fontSize: '12px' }}
             formatter={(value: number, name: string) => [value, name]}
@@ -69,7 +83,7 @@ export function SubsidiariaChart({ deals }: SubsidiariaChartProps) {
           />
           <Legend wrapperStyle={{ fontSize: '11px' }} />
           {countries.map((c, i) => (
-            <Bar key={c} dataKey={c} stackId="a" fill={COLORS[i % COLORS.length]} radius={i === countries.length - 1 ? [0, 3, 3, 0] : undefined} />
+            <Bar key={c} dataKey={c} stackId="a" fill={getColor(c, i)} radius={i === countries.length - 1 ? [0, 3, 3, 0] : undefined} />
           ))}
         </BarChart>
       </ResponsiveContainer>
