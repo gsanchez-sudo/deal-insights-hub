@@ -223,6 +223,10 @@ export default function Index() {
                 </motion.div>
               </AnimatePresence>
             </TabsContent>
+
+            <TabsContent value="riesgos">
+              <RiskDashboard deals={filtered} />
+            </TabsContent>
           </Tabs>
         )}
       </main>
