@@ -6,17 +6,17 @@ interface ContractMixChartProps {
 }
 
 const COLORS = [
-  "hsl(218, 100%, 22%)",
-  "hsl(202, 100%, 38%)",
-  "hsl(142, 71%, 45%)",
-  "hsl(38, 92%, 50%)",
-  "hsl(262, 83%, 58%)",
-  "hsl(0, 84%, 60%)",
+  "hsl(216, 68%, 7%)",
+  "hsl(220, 100%, 55%)",
+  "hsl(193, 100%, 38%)",
+  "hsl(230, 78%, 17%)",
+  "hsl(207, 100%, 39%)",
+  "hsl(216, 68%, 20%)",
 ];
 
 export function ContractMixChart({ data, total }: ContractMixChartProps) {
   return (
-    <div className="bg-card p-5 rounded-lg border border-border">
+    <div className="bg-card p-5 rounded-lg border border-border shadow-sm">
       <h3 className="text-sm font-display font-semibold text-foreground mb-4">Mix de Contratos</h3>
       <div className="flex items-center gap-6">
         <div className="relative w-44 h-44">
@@ -28,7 +28,7 @@ export function ContractMixChart({ data, total }: ContractMixChartProps) {
                 ))}
               </Pie>
               <Tooltip
-                contentStyle={{ background: '#fff', border: '1px solid hsl(220,13%,91%)', borderRadius: '8px', fontSize: '12px' }}
+                contentStyle={{ background: '#fff', border: '1px solid hsl(220,15%,90%)', borderRadius: '0.625rem', fontSize: '12px' }}
               />
             </PieChart>
           </ResponsiveContainer>

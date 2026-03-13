@@ -31,7 +31,6 @@ export default function Index() {
   const [selectedArea, setSelectedArea] = useState("__all__");
   const [activeCard, setActiveCard] = useState<CardType>(null);
 
-  // Auto-load sample CSV
   useEffect(() => {
     fetch('/data/sample.csv')
       .then(r => r.text())
@@ -70,7 +69,6 @@ export default function Index() {
     });
   }, [allRecords, selectedMonth, selectedArea]);
 
-  // KPI metrics
   const metrics = useMemo(() => {
     const inDeals = filtered.filter(r => r.estatusHubspot === 'IN');
     const forecastDeals = filtered.filter(r => r.estatusHubspot === 'FORECAST');
@@ -84,7 +82,6 @@ export default function Index() {
     };
   }, [filtered]);
 
-  // Card-filtered deals for data table
   const cardFiltered = useMemo(() => {
     if (!activeCard) return filtered;
     switch (activeCard) {
@@ -116,24 +113,23 @@ export default function Index() {
 
   const hasData = allRecords.length > 0;
   const filterKey = `${selectedMonth}-${selectedArea}`;
-
   const cardLabel = activeCard === 'in' ? 'Estatus IN' : activeCard === 'forecast' ? 'Forecast' : activeCard === 'multicuenta' ? 'Multicuentas' : activeCard === 'excepciones' ? 'Excepciones' : null;
 
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-card border-b border-border shadow-sm">
+      <header className="sticky top-0 z-50 bg-sidebar border-b border-sidebar-border shadow-md">
         <div className="max-w-[1400px] mx-auto px-6 py-3">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
                 <img src={ubitsLogo} alt="UBITS" className="w-5 h-5" />
               </div>
               <div>
-                <h1 className="text-lg font-display font-bold text-foreground leading-tight">
+                <h1 className="text-lg font-display font-semibold text-sidebar-foreground leading-tight">
                   UG: Legal Operations
                 </h1>
-                <p className="text-xs text-muted-foreground">Reporte Operativo 2026</p>
+                <p className="text-xs text-sidebar-foreground/60">Reporte Operativo 2026</p>
               </div>
             </div>
             <div className="w-64">
@@ -161,21 +157,21 @@ export default function Index() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h2 className="text-xl font-display font-bold text-foreground mb-2">Carga tu archivo CSV</h2>
+            <h2 className="text-xl font-display font-semibold text-foreground mb-2">Carga tu archivo CSV</h2>
             <p className="text-muted-foreground max-w-md text-sm">
               Sube el archivo de la hoja "2026 - REPORTE DEALS GENERAL" para generar el reporte operativo.
             </p>
           </div>
         ) : (
           <Tabs defaultValue="dashboard" className="space-y-6">
-            <TabsList className="bg-muted border border-border">
-              <TabsTrigger value="dashboard" className="data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+            <TabsList className="bg-card border border-border shadow-sm">
+              <TabsTrigger value="dashboard" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm font-medium">
                 Dashboard
               </TabsTrigger>
-              <TabsTrigger value="pipeline" className="data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+              <TabsTrigger value="pipeline" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm font-medium">
                 Análisis de Pipeline
               </TabsTrigger>
-              <TabsTrigger value="riesgos" className="data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+              <TabsTrigger value="riesgos" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm font-medium">
                 Gestión de Riesgos
               </TabsTrigger>
             </TabsList>
@@ -183,10 +179,7 @@ export default function Index() {
             <TabsContent value="dashboard">
               <AnimatePresence mode="wait">
                 <motion.div key={filterKey} variants={fadeVariants} initial="initial" animate="animate" exit="exit" className="space-y-6">
-                  {/* KPI Cards */}
                   <KPICards {...metrics} activeCard={activeCard} onCardClick={setActiveCard} />
-
-                  {/* Charts Row */}
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <div className="lg:col-span-2 space-y-4">
                       <SubsidiariaChart deals={filtered} />
@@ -200,14 +193,10 @@ export default function Index() {
                       <OCMonitor deals={filtered} />
                     </div>
                   </div>
-
-                  {/* Alerts */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <TruoraAlert deals={filtered} />
                     <ExceptionsTable deals={filtered} />
                   </div>
-
-                  {/* Data Table */}
                   <DataTable
                     deals={cardFiltered}
                     title={cardLabel ? `Registros: ${cardLabel}` : 'Todos los Registros'}

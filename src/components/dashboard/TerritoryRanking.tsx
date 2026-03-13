@@ -22,7 +22,7 @@ export function TerritoryRanking({ deals }: TerritoryRankingProps) {
   const maxUsd = territories[0]?.usd || 1;
 
   return (
-    <div className="bg-card rounded-lg border border-border p-5">
+    <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
       <div className="flex items-center gap-2 mb-4">
         <MapPin className="w-4 h-4 text-primary" />
         <h3 className="text-sm font-display font-semibold text-foreground">Ranking de Territorios</h3>

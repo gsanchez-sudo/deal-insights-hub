@@ -6,54 +6,54 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 228 50% 9%;
+    --background: 220 20% 97%;
+    --foreground: 216 50% 7%;
 
     --card: 0 0% 100%;
-    --card-foreground: 228 50% 9%;
+    --card-foreground: 216 50% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 228 50% 9%;
+    --popover-foreground: 216 50% 7%;
 
-    --primary: 222 100% 56%;
+    --primary: 220 100% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 222 47% 95%;
-    --secondary-foreground: 228 50% 9%;
+    --secondary: 220 30% 95%;
+    --secondary-foreground: 216 50% 7%;
 
     --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted-foreground: 220 10% 46%;
 
-    --accent: 222 47% 95%;
-    --accent-foreground: 228 50% 9%;
+    --accent: 220 30% 95%;
+    --accent-foreground: 216 50% 7%;
 
     --destructive: 356 82% 47%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 222 100% 56%;
+    --border: 220 15% 90%;
+    --input: 220 15% 90%;
+    --ring: 220 100% 55%;
 
     --radius: 0.625rem;
 
     /* UBITS Corporate Palette */
-    --ubits-navy: 228 50% 9%;
-    --ubits-blue: 222 100% 56%;
-    --ubits-deep: 231 75% 17%;
-    --ubits-cyan: 188 100% 49%;
+    --ubits-navy: 216 68% 7%;
+    --ubits-blue: 220 100% 55%;
+    --ubits-deep: 230 78% 17%;
+    --ubits-cyan: 193 100% 38%;
     --ubits-mid-blue: 207 100% 39%;
     --ubits-red: 356 82% 47%;
     --ubits-yellow: 44 97% 49%;
     --ubits-green: 152 100% 38%;
 
-    /* Status colors mapped to UBITS palette */
-    --status-in: 152 100% 38%;
+    /* Status colors */
+    --status-in: 220 100% 55%;
     --status-in-foreground: 0 0% 100%;
-    --status-forecast: 44 97% 49%;
+    --status-forecast: 193 100% 38%;
     --status-forecast-foreground: 0 0% 100%;
     --status-exception: 356 82% 47%;
     --status-exception-foreground: 0 0% 100%;
-    --status-multicuenta: 231 75% 17%;
+    --status-multicuenta: 230 78% 17%;
     --status-multicuenta-foreground: 0 0% 100%;
 
     /* Risk status colors */
@@ -61,22 +61,22 @@
     --risk-alert: 44 97% 49%;
     --risk-review: 356 82% 47%;
     --risk-jurisdiction: 207 100% 39%;
-    --risk-rejected: 228 50% 9%;
+    --risk-rejected: 216 68% 7%;
 
-    --chart-1: 228 50% 9%;
-    --chart-2: 222 100% 56%;
-    --chart-3: 152 100% 38%;
-    --chart-4: 44 97% 49%;
-    --chart-5: 231 75% 17%;
-    --chart-6: 356 82% 47%;
+    --chart-1: 216 68% 7%;
+    --chart-2: 220 100% 55%;
+    --chart-3: 193 100% 38%;
+    --chart-4: 230 78% 17%;
+    --chart-5: 207 100% 39%;
+    --chart-6: 216 68% 20%;
 
-    --sidebar-background: 228 50% 9%;
+    --sidebar-background: 216 68% 7%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 228 50% 9%;
-    --sidebar-accent: 222 100% 56%;
+    --sidebar-primary-foreground: 216 68% 7%;
+    --sidebar-accent: 220 100% 55%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 231 75% 17%;
+    --sidebar-border: 230 78% 17%;
     --sidebar-ring: 0 0% 100%;
   }
 }

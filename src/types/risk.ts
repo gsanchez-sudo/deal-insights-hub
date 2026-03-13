@@ -19,10 +19,10 @@ export const LOCAL_JURISDICTION = 'Colombia';
 export const RISK_COLORS: Record<string, string> = {
   'Aprobado': 'hsl(152, 100%, 38%)',
   'Riesgo': 'hsl(44, 97%, 49%)',
-  'Rechazado': 'hsl(228, 50%, 9%)',
+  'Rechazado': 'hsl(216, 68%, 7%)',
   'Requiere Revisión de VP': 'hsl(356, 82%, 47%)',
   'Jurisdicción Extranjera': 'hsl(207, 100%, 39%)',
-  'Alerta de Jurisdicción': 'hsl(188, 100%, 49%)',
+  'Alerta de Jurisdicción': 'hsl(193, 100%, 38%)',
 };
 
 export const JURISDICTIONS = [

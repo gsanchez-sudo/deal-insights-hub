@@ -38,7 +38,6 @@ export function ExecutiveReport({ closings }: ExecutiveReportProps) {
           </DialogTitle>
         </DialogHeader>
 
-        {/* Print-optimized report */}
         <div className="space-y-6 print:p-8">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border pb-4">
@@ -47,7 +46,7 @@ export function ExecutiveReport({ closings }: ExecutiveReportProps) {
                 <img src={ubitsLogo} alt="UBITS" className="w-5 h-5" />
               </div>
               <div>
-                <h1 className="text-lg font-display font-bold text-foreground">Reporte Ejecutivo de Riesgos</h1>
+                <h1 className="text-lg font-display font-semibold text-foreground">Reporte Ejecutivo de Riesgos</h1>
                 <p className="text-xs text-muted-foreground">UG: Legal Operations — {new Date().toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
               </div>
             </div>
@@ -56,15 +55,15 @@ export function ExecutiveReport({ closings }: ExecutiveReportProps) {
           {/* Summary */}
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-secondary rounded-lg p-4 text-center">
-              <p className="text-2xl font-display font-bold text-foreground">{flagged.length}</p>
+              <p className="text-2xl font-display font-semibold text-foreground">{flagged.length}</p>
               <p className="text-xs text-muted-foreground">Cierres con Riesgo</p>
             </div>
             <div className="bg-secondary rounded-lg p-4 text-center">
-              <p className="text-2xl font-display font-bold text-foreground">${totalFlagged.toLocaleString('en-US')}</p>
+              <p className="text-2xl font-display font-semibold text-foreground">${totalFlagged.toLocaleString('en-US')}</p>
               <p className="text-xs text-muted-foreground">Monto Total en Riesgo</p>
             </div>
             <div className="bg-secondary rounded-lg p-4 text-center">
-              <p className="text-2xl font-display font-bold text-foreground">{closings.length}</p>
+              <p className="text-2xl font-display font-semibold text-foreground">{closings.length}</p>
               <p className="text-xs text-muted-foreground">Total de Cierres</p>
             </div>
           </div>

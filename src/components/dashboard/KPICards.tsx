@@ -27,7 +27,7 @@ export function KPICards({
     {
       key: 'in', label: 'Total IN', count: totalIn, usd: usdIn,
       icon: <FileCheck className="w-5 h-5" />,
-      colorClass: 'text-status-in', borderClass: 'border-status-in', bgClass: 'bg-status-in/10',
+      colorClass: 'text-primary', borderClass: 'border-primary', bgClass: 'bg-primary/10',
     },
     {
       key: 'forecast', label: 'Forecast', count: totalForecast, usd: usdForecast,
@@ -54,7 +54,7 @@ export function KPICards({
           <button
             key={c.key}
             onClick={() => onCardClick(isActive ? null : c.key)}
-            className={`bg-card p-5 rounded-lg border-2 text-left transition-all duration-200 hover:shadow-md ${
+            className={`bg-card p-5 rounded-lg border-2 text-left transition-all duration-200 hover:shadow-md shadow-sm ${
               isActive ? `${c.borderClass} shadow-lg` : 'border-border hover:border-muted-foreground/30'
             }`}
           >
@@ -64,7 +64,7 @@ export function KPICards({
                 {c.icon}
               </div>
             </div>
-            <AnimatedNumber value={c.count} className="text-3xl font-display font-bold text-foreground block" />
+            <AnimatedNumber value={c.count} className="text-3xl font-display font-semibold text-foreground block" />
             <div className="mt-1">
               <AnimatedNumber value={c.usd} format={formatUSD} className={`text-sm font-semibold ${c.colorClass}`} />
             </div>

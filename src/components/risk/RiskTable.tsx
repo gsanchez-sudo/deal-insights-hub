@@ -10,7 +10,7 @@ function getRiskBadgeClass(status: RiskStatus): string {
   switch (status) {
     case 'Aprobado': return 'bg-risk-approved text-white border-transparent';
     case 'Riesgo': return 'bg-risk-alert text-foreground border-transparent';
-    case 'Rechazado': return 'bg-risk-rejected text-white border-transparent';
+    case 'Rechazado': return 'bg-foreground text-primary-foreground border-transparent';
     case 'Requiere Revisión de VP': return 'bg-risk-review text-white border-transparent';
     case 'Jurisdicción Extranjera': return 'bg-risk-jurisdiction text-white border-transparent';
     case 'Alerta de Jurisdicción': return 'bg-ubits-cyan text-foreground border-transparent';
@@ -21,7 +21,7 @@ function getRiskBadgeClass(status: RiskStatus): string {
 export function RiskTable({ closings }: RiskTableProps) {
   if (closings.length === 0) {
     return (
-      <div className="bg-card rounded-lg border border-border p-5">
+      <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
         <h3 className="text-sm font-display font-semibold text-foreground mb-4">Negocios Cerrados</h3>
         <p className="text-muted-foreground text-sm text-center py-8">No hay cierres registrados. Usa "Nuevo Cierre" para agregar uno.</p>
       </div>
@@ -29,7 +29,7 @@ export function RiskTable({ closings }: RiskTableProps) {
   }
 
   return (
-    <div className="bg-card rounded-lg border border-border p-5">
+    <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
       <h3 className="text-sm font-display font-semibold text-foreground mb-4">Negocios Cerrados</h3>
       <div className="overflow-auto max-h-[400px]">
         <Table>
@@ -45,7 +45,7 @@ export function RiskTable({ closings }: RiskTableProps) {
           </TableHeader>
           <TableBody>
             {closings.map((c) => (
-              <TableRow key={c.id} className="hover:bg-secondary/50 transition-colors">
+              <TableRow key={c.id} className="hover:bg-muted/50 transition-colors">
                 <TableCell className="font-medium">{c.cliente}</TableCell>
                 <TableCell>${c.monto.toLocaleString('en-US')}</TableCell>
                 <TableCell>{c.fecha}</TableCell>
