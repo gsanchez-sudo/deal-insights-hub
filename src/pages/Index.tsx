@@ -175,6 +175,9 @@ export default function Index() {
               <TabsTrigger value="pipeline" className="data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
                 Análisis de Pipeline
               </TabsTrigger>
+              <TabsTrigger value="riesgos" className="data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+                Gestión de Riesgos
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="dashboard">
