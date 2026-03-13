@@ -23,9 +23,9 @@ export function FilterBar({
   return (
     <div className="flex flex-wrap items-center gap-3">
       <div className="flex items-center gap-2">
-        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Mes</label>
+        <label className="text-xs font-semibold text-sidebar-foreground/60 uppercase tracking-wider">Mes</label>
         <Select value={selectedMonth} onValueChange={onMonthChange} disabled={!hasData}>
-          <SelectTrigger className="w-36 bg-card border-border text-foreground h-9 text-sm">
+          <SelectTrigger className="w-36 bg-sidebar-border/30 border-sidebar-border text-sidebar-foreground h-9 text-sm">
             <SelectValue placeholder="Seleccionar" />
           </SelectTrigger>
           <SelectContent className="bg-card border-border">
@@ -38,9 +38,9 @@ export function FilterBar({
       </div>
 
       <div className="flex items-center gap-2">
-        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Área</label>
+        <label className="text-xs font-semibold text-sidebar-foreground/60 uppercase tracking-wider">Área</label>
         <Select value={selectedArea} onValueChange={onAreaChange} disabled={!hasData}>
-          <SelectTrigger className="w-36 bg-card border-border text-foreground h-9 text-sm">
+          <SelectTrigger className="w-36 bg-sidebar-border/30 border-sidebar-border text-sidebar-foreground h-9 text-sm">
             <SelectValue placeholder="Seleccionar" />
           </SelectTrigger>
           <SelectContent className="bg-card border-border">
@@ -67,7 +67,7 @@ export function FilterBar({
           variant="outline"
           size="sm"
           onClick={() => fileRef.current?.click()}
-          className="border-border text-foreground hover:bg-muted"
+          className="border-sidebar-border text-sidebar-foreground hover:bg-sidebar-border/30"
         >
           <Upload className="w-4 h-4 mr-2" />
           Cargar CSV

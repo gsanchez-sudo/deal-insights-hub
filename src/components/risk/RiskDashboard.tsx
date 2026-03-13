@@ -52,7 +52,6 @@ export function RiskDashboard({ deals }: RiskDashboardProps) {
     });
   }, [closings, riskFilter, dateRange]);
 
-  // Summary cards
   const summary = useMemo(() => {
     const approved = closings.filter(c => c.estadoRiesgo === 'Aprobado').length;
     const risk = closings.filter(c => c.estadoRiesgo === 'Riesgo' || c.estadoRiesgo === 'Requiere Revisión de VP').length;
@@ -66,7 +65,7 @@ export function RiskDashboard({ deals }: RiskDashboardProps) {
       {/* Title & Actions */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-display font-bold text-foreground">Gestión de Riesgos de Cierre de Negocios</h2>
+          <h2 className="text-xl font-display font-semibold text-foreground">Gestión de Riesgos de Cierre de Negocios</h2>
           <p className="text-sm text-muted-foreground mt-1">Panel de control de evaluación y validación de contratos</p>
         </div>
         <div className="flex items-center gap-3">
@@ -76,7 +75,7 @@ export function RiskDashboard({ deals }: RiskDashboardProps) {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap items-center gap-3 bg-card rounded-lg border border-border p-4">
+      <div className="flex flex-wrap items-center gap-3 bg-card rounded-lg border border-border p-4 shadow-sm">
         <div className="flex items-center gap-2">
           <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Fecha</label>
           <Popover>
@@ -116,10 +115,10 @@ export function RiskDashboard({ deals }: RiskDashboardProps) {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <SummaryCard label="Total Cierres" value={summary.count} color="bg-primary" />
-        <SummaryCard label="Aprobados" value={summary.approved} color="bg-risk-approved" />
-        <SummaryCard label="En Riesgo" value={summary.risk} color="bg-risk-review" />
-        <SummaryCard label="Monto Total" value={`$${summary.total.toLocaleString('en-US')}`} color="bg-ubits-blue" />
+        <SummaryCard label="Total Cierres" value={summary.count} variant="navy" />
+        <SummaryCard label="Aprobados" value={summary.approved} variant="green" />
+        <SummaryCard label="En Riesgo" value={summary.risk} variant="red" />
+        <SummaryCard label="Monto Total" value={`$${summary.total.toLocaleString('en-US')}`} variant="blue" />
       </div>
 
       {/* Charts */}
@@ -134,10 +133,17 @@ export function RiskDashboard({ deals }: RiskDashboardProps) {
   );
 }
 
-function SummaryCard({ label, value, color }: { label: string; value: string | number; color: string }) {
+function SummaryCard({ label, value, variant }: { label: string; value: string | number; variant: 'navy' | 'blue' | 'green' | 'red' }) {
+  const bgMap = {
+    navy: 'bg-foreground',
+    blue: 'bg-primary',
+    green: 'bg-risk-approved',
+    red: 'bg-risk-review',
+  };
+
   return (
-    <div className={`${color} text-white rounded-lg p-4 transition-all duration-200 hover:scale-[1.02]`}>
-      <p className="text-2xl font-display font-bold">{value}</p>
+    <div className={`${bgMap[variant]} text-white rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow-md`}>
+      <p className="text-2xl font-display font-semibold">{value}</p>
       <p className="text-xs opacity-80 mt-1">{label}</p>
     </div>
   );

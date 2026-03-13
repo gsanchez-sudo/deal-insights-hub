@@ -7,14 +7,14 @@ interface SubsidiariaChartProps {
 }
 
 const COLORS = [
-  "hsl(228, 50%, 9%)",       // Navy
-  "hsl(222, 100%, 56%)",     // Bright Blue
-  "hsl(152, 100%, 38%)",     // Green
-  "hsl(44, 97%, 49%)",       // Yellow
-  "hsl(231, 75%, 17%)",      // Deep Blue
-  "hsl(356, 82%, 47%)",      // Red
-  "hsl(207, 100%, 39%)",     // Mid Blue
-  "hsl(188, 100%, 49%)",     // Cyan
+  "hsl(216, 68%, 7%)",
+  "hsl(220, 100%, 55%)",
+  "hsl(193, 100%, 38%)",
+  "hsl(230, 78%, 17%)",
+  "hsl(207, 100%, 39%)",
+  "hsl(216, 68%, 20%)",
+  "hsl(220, 60%, 40%)",
+  "hsl(210, 80%, 30%)",
 ];
 
 export function SubsidiariaChart({ deals }: SubsidiariaChartProps) {
@@ -42,7 +42,6 @@ export function SubsidiariaChart({ deals }: SubsidiariaChartProps) {
     return { data, countries };
   }, [deals]);
 
-  // Also compute USD by subsidiary for tooltip
   const usdBySubsidiaria = useMemo(() => {
     const m = new Map<string, number>();
     deals.forEach(d => {
@@ -53,14 +52,14 @@ export function SubsidiariaChart({ deals }: SubsidiariaChartProps) {
   }, [deals]);
 
   return (
-    <div className="bg-card rounded-lg border border-border p-5">
+    <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
       <h3 className="text-sm font-display font-semibold text-foreground mb-4">Deals por Subsidiaria y País</h3>
       <ResponsiveContainer width="100%" height={Math.max(250, data.length * 45)}>
         <BarChart data={data} layout="vertical" margin={{ left: 10, right: 30 }}>
-          <XAxis type="number" tick={{ fill: 'hsl(215, 16%, 47%)', fontSize: 12 }} axisLine={false} tickLine={false} />
-          <YAxis type="category" dataKey="name" width={100} tick={{ fill: 'hsl(215, 60%, 10%)', fontSize: 11 }} axisLine={false} tickLine={false} />
+          <XAxis type="number" tick={{ fill: 'hsl(220, 10%, 46%)', fontSize: 12 }} axisLine={false} tickLine={false} />
+          <YAxis type="category" dataKey="name" width={100} tick={{ fill: 'hsl(216, 68%, 7%)', fontSize: 11 }} axisLine={false} tickLine={false} />
           <Tooltip
-            contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: '8px', fontSize: '12px' }}
+            contentStyle={{ background: '#fff', border: '1px solid hsl(220, 15%, 90%)', borderRadius: '0.625rem', fontSize: '12px' }}
             formatter={(value: number, name: string) => [value, name]}
             labelFormatter={(label) => {
               const usd = usdBySubsidiaria.get(label as string) || 0;

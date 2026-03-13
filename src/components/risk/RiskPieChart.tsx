@@ -18,7 +18,7 @@ export function RiskPieChart({ closings }: RiskPieChartProps) {
 
   if (data.length === 0) {
     return (
-      <div className="bg-card rounded-lg border border-border p-5">
+      <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
         <h3 className="text-sm font-display font-semibold text-foreground mb-4">Distribución de Estados de Riesgo</h3>
         <p className="text-muted-foreground text-sm text-center py-8">Sin datos de cierres registrados</p>
       </div>
@@ -26,7 +26,7 @@ export function RiskPieChart({ closings }: RiskPieChartProps) {
   }
 
   return (
-    <div className="bg-card rounded-lg border border-border p-5">
+    <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
       <h3 className="text-sm font-display font-semibold text-foreground mb-4">Distribución de Estados de Riesgo</h3>
       <ResponsiveContainer width="100%" height={280}>
         <PieChart>
@@ -39,14 +39,14 @@ export function RiskPieChart({ closings }: RiskPieChartProps) {
             paddingAngle={3}
             dataKey="value"
             label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-            labelLine={{ stroke: 'hsl(220, 9%, 46%)' }}
+            labelLine={{ stroke: 'hsl(220, 10%, 46%)' }}
           >
             {data.map((entry, i) => (
-              <Cell key={i} fill={RISK_COLORS[entry.name] || 'hsl(220, 9%, 46%)'} />
+              <Cell key={i} fill={RISK_COLORS[entry.name] || 'hsl(220, 10%, 46%)'} />
             ))}
           </Pie>
           <Tooltip
-            contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: '8px', fontSize: '12px' }}
+            contentStyle={{ background: '#fff', border: '1px solid hsl(220, 15%, 90%)', borderRadius: '0.625rem', fontSize: '12px' }}
             formatter={(value: number) => [value, 'Cierres']}
           />
         </PieChart>

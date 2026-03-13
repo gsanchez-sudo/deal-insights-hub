@@ -7,15 +7,15 @@ interface PipelineAnalysisProps {
 }
 
 const PIPELINE_COLORS: Record<string, string> = {
-  'Sales Pipeline': 'hsl(218, 100%, 22%)',
-  'Renovation Pipeline': 'hsl(202, 100%, 38%)',
-  'Expansion Pipeline': 'hsl(142, 71%, 45%)',
+  'Sales Pipeline': 'hsl(216, 68%, 7%)',
+  'Renovation Pipeline': 'hsl(220, 100%, 55%)',
+  'Expansion Pipeline': 'hsl(193, 100%, 38%)',
 };
 
 const FALLBACK_COLORS = [
-  'hsl(38, 92%, 50%)',
-  'hsl(262, 83%, 58%)',
-  'hsl(0, 84%, 60%)',
+  'hsl(230, 78%, 17%)',
+  'hsl(207, 100%, 39%)',
+  'hsl(216, 68%, 20%)',
 ];
 
 function categorizePipeline(pipeline: string): string {
@@ -58,7 +58,7 @@ export function PipelineAnalysis({ deals }: PipelineAnalysisProps) {
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Donut by category */}
-        <div className="bg-card rounded-lg border border-border p-5">
+        <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
           <h3 className="text-sm font-display font-semibold text-foreground mb-4">USD por Categoría de Pipeline</h3>
           <div className="flex items-center gap-6">
             <div className="relative w-48 h-48">
@@ -66,11 +66,11 @@ export function PipelineAnalysis({ deals }: PipelineAnalysisProps) {
                 <PieChart>
                   <Pie data={byCategory} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="usd" stroke="none">
                     {byCategory.map((_, i) => (
-                      <Cell key={i} fill={FALLBACK_COLORS[i % FALLBACK_COLORS.length] || 'hsl(218,100%,22%)'} />
+                      <Cell key={i} fill={FALLBACK_COLORS[i % FALLBACK_COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip
-                    contentStyle={{ background: '#fff', border: '1px solid hsl(220,13%,91%)', borderRadius: '8px', fontSize: '12px' }}
+                    contentStyle={{ background: '#fff', border: '1px solid hsl(220,15%,90%)', borderRadius: '0.625rem', fontSize: '12px' }}
                     formatter={(v: number) => [`$${v.toLocaleString('en-US')}`, 'USD']}
                   />
                 </PieChart>
@@ -95,14 +95,14 @@ export function PipelineAnalysis({ deals }: PipelineAnalysisProps) {
         </div>
 
         {/* Bar by pipeline */}
-        <div className="bg-card rounded-lg border border-border p-5">
+        <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
           <h3 className="text-sm font-display font-semibold text-foreground mb-4">USD por Pipeline</h3>
           <ResponsiveContainer width="100%" height={Math.max(200, byPipeline.length * 50)}>
             <BarChart data={byPipeline} layout="vertical" margin={{ left: 10, right: 30 }}>
-              <XAxis type="number" tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} tick={{ fill: 'hsl(215,16%,47%)', fontSize: 12 }} axisLine={false} tickLine={false} />
-              <YAxis type="category" dataKey="name" width={130} tick={{ fill: 'hsl(215,60%,10%)', fontSize: 11 }} axisLine={false} tickLine={false} />
+              <XAxis type="number" tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} tick={{ fill: 'hsl(220, 10%, 46%)', fontSize: 12 }} axisLine={false} tickLine={false} />
+              <YAxis type="category" dataKey="name" width={130} tick={{ fill: 'hsl(216, 68%, 7%)', fontSize: 11 }} axisLine={false} tickLine={false} />
               <Tooltip
-                contentStyle={{ background: '#fff', border: '1px solid hsl(220,13%,91%)', borderRadius: '8px', fontSize: '12px' }}
+                contentStyle={{ background: '#fff', border: '1px solid hsl(220,15%,90%)', borderRadius: '0.625rem', fontSize: '12px' }}
                 formatter={(v: number) => [`$${v.toLocaleString('en-US')}`, 'USD']}
               />
               <Bar dataKey="usd" radius={[0, 4, 4, 0]} maxBarSize={28}>
@@ -116,7 +116,7 @@ export function PipelineAnalysis({ deals }: PipelineAnalysisProps) {
       </div>
 
       {/* Detail table */}
-      <div className="bg-card rounded-lg border border-border p-5">
+      <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
         <h3 className="text-sm font-display font-semibold text-foreground mb-4">Detalle por Categoría</h3>
         <div className="overflow-auto">
           <table className="w-full text-sm">
