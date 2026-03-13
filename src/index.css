@@ -6,60 +6,77 @@
 
 @layer base {
   :root {
-    --background: 0 0% 97%;
-    --foreground: 215 60% 10%;
+    --background: 0 0% 100%;
+    --foreground: 228 50% 9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 60% 10%;
+    --card-foreground: 228 50% 9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 60% 10%;
+    --popover-foreground: 228 50% 9%;
 
-    --primary: 218 100% 22%;
+    --primary: 222 100% 56%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 216 80% 95%;
-    --secondary-foreground: 218 100% 22%;
+    --secondary: 222 47% 95%;
+    --secondary-foreground: 228 50% 9%;
 
     --muted: 220 14% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 216 80% 95%;
-    --accent-foreground: 218 100% 22%;
+    --accent: 222 47% 95%;
+    --accent-foreground: 228 50% 9%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 356 82% 47%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 218 100% 22%;
+    --ring: 222 100% 56%;
 
     --radius: 0.625rem;
 
-    /* Semantic status colors */
-    --status-in: 142 71% 45%;
+    /* UBITS Corporate Palette */
+    --ubits-navy: 228 50% 9%;
+    --ubits-blue: 222 100% 56%;
+    --ubits-deep: 231 75% 17%;
+    --ubits-cyan: 188 100% 49%;
+    --ubits-mid-blue: 207 100% 39%;
+    --ubits-red: 356 82% 47%;
+    --ubits-yellow: 44 97% 49%;
+    --ubits-green: 152 100% 38%;
+
+    /* Status colors mapped to UBITS palette */
+    --status-in: 152 100% 38%;
     --status-in-foreground: 0 0% 100%;
-    --status-forecast: 38 92% 50%;
+    --status-forecast: 44 97% 49%;
     --status-forecast-foreground: 0 0% 100%;
-    --status-exception: 0 84% 60%;
+    --status-exception: 356 82% 47%;
     --status-exception-foreground: 0 0% 100%;
-    --status-multicuenta: 262 83% 58%;
+    --status-multicuenta: 231 75% 17%;
     --status-multicuenta-foreground: 0 0% 100%;
 
-    --chart-1: 218 100% 22%;
-    --chart-2: 202 100% 38%;
-    --chart-3: 142 71% 45%;
-    --chart-4: 38 92% 50%;
-    --chart-5: 262 83% 58%;
-    --chart-6: 0 84% 60%;
+    /* Risk status colors */
+    --risk-approved: 152 100% 38%;
+    --risk-alert: 44 97% 49%;
+    --risk-review: 356 82% 47%;
+    --risk-jurisdiction: 207 100% 39%;
+    --risk-rejected: 228 50% 9%;
 
-    --sidebar-background: 218 100% 22%;
+    --chart-1: 228 50% 9%;
+    --chart-2: 222 100% 56%;
+    --chart-3: 152 100% 38%;
+    --chart-4: 44 97% 49%;
+    --chart-5: 231 75% 17%;
+    --chart-6: 356 82% 47%;
+
+    --sidebar-background: 228 50% 9%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 218 100% 22%;
-    --sidebar-accent: 218 80% 30%;
+    --sidebar-primary-foreground: 228 50% 9%;
+    --sidebar-accent: 222 100% 56%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 218 60% 32%;
+    --sidebar-border: 231 75% 17%;
     --sidebar-ring: 0 0% 100%;
   }
 }
@@ -78,5 +95,14 @@
 
   h1, h2, h3, .font-display {
     font-family: 'Sora', sans-serif;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
   }
 }
