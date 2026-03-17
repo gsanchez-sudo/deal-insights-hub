@@ -10,7 +10,7 @@ import { ExceptionsTable } from "@/components/dashboard/ExceptionsTable";
 import { DealSearchModal } from "@/components/dashboard/DealSearchModal";
 import { OCMonitor } from "@/components/dashboard/OCMonitor";
 import { SubsidiariaChart } from "@/components/dashboard/SubsidiariaChart";
-import { TerritoryRanking } from "@/components/dashboard/TerritoryRanking";
+import { O2CStandardizationKPI } from "@/components/dashboard/O2CStandardizationKPI";
 import { PipelineAnalysis } from "@/components/dashboard/PipelineAnalysis";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { RiskDashboard } from "@/components/risk/RiskDashboard";
@@ -171,8 +171,8 @@ export default function Index() {
               <TabsTrigger value="pipeline" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm font-medium">
                 Análisis de Pipeline
               </TabsTrigger>
-              <TabsTrigger value="riesgos" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm font-medium">
-                Gestión de Riesgos
+              <TabsTrigger value="kpis" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm font-medium">
+                KPIs
               </TabsTrigger>
             </TabsList>
 
@@ -189,7 +189,6 @@ export default function Index() {
                       </div>
                     </div>
                     <div className="space-y-4">
-                      <TerritoryRanking deals={filtered} />
                       <OCMonitor deals={filtered} />
                     </div>
                   </div>
@@ -213,8 +212,11 @@ export default function Index() {
               </AnimatePresence>
             </TabsContent>
 
-            <TabsContent value="riesgos">
-              <RiskDashboard deals={filtered} />
+            <TabsContent value="kpis">
+              <div className="space-y-6">
+                <O2CStandardizationKPI deals={filtered} />
+                <RiskDashboard deals={filtered} />
+              </div>
             </TabsContent>
           </Tabs>
         )}
