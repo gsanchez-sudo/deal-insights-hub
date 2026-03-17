@@ -212,8 +212,11 @@ export default function Index() {
               </AnimatePresence>
             </TabsContent>
 
-            <TabsContent value="riesgos">
-              <RiskDashboard deals={filtered} />
+            <TabsContent value="kpis">
+              <div className="space-y-6">
+                <O2CStandardizationKPI deals={filtered} />
+                <RiskDashboard deals={filtered} />
+              </div>
             </TabsContent>
           </Tabs>
         )}
