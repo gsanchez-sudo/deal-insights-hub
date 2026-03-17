@@ -10,7 +10,7 @@ import { ExceptionsTable } from "@/components/dashboard/ExceptionsTable";
 import { DealSearchModal } from "@/components/dashboard/DealSearchModal";
 import { OCMonitor } from "@/components/dashboard/OCMonitor";
 import { SubsidiariaChart } from "@/components/dashboard/SubsidiariaChart";
-import { TerritoryRanking } from "@/components/dashboard/TerritoryRanking";
+import { O2CStandardizationKPI } from "@/components/dashboard/O2CStandardizationKPI";
 import { PipelineAnalysis } from "@/components/dashboard/PipelineAnalysis";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { RiskDashboard } from "@/components/risk/RiskDashboard";
